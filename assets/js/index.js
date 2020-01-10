@@ -30,14 +30,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	canvas = new Canvas();
 	counter = document.querySelector('div.panel div.counter p');
+	counter_rest = document.querySelector('div.panel div.counter p:nth-child(2)');
 	percent = document.querySelector('div.panel div.progress div.percent p');
 	run();
 });
 
+function restTime() {
+	let ms = END.getTime() - D.getTime();
+
+	let segundos = ms / 1000;
+	let minutos = segundos / 60;
+	segundos = segundos % 60;
+	let horas = minutos / 60;
+	minutos = minutos % 60;
+
+	return `-${Math.floor(horas)}:${Math.floor(minutos)}:${Math.floor(segundos)}`;
+}
+
 function run() {
 	D = new Date();
 	ACTUAL_PERCENT = D.getTime() - INIT.getTime();
+
 	counter.innerText = D.toLocaleTimeString();
+	counter_rest.innerText = restTime();
 
 	update();
 	draw();
